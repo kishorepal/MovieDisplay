@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content" >
+
+    <data class="MoveDetailsDataBindings">
+
+        <variable
+            name="movieModel"
+            type="com.google.external.assignment.movie.model.moviedb.Movie" />
+
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+
+            android:layout_margin="4dp"
+            android:id="@+id/motionlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutDescription="@xml/collapsing_back_drop"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:showPaths="false">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollview"
+
+                android:layout_margin="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/back_drop_image">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.12" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.46" />
+
+                    <ImageView
+                        android:id="@+id/image"
+                        app:loadPosterImage="@{movieModel.posterPath}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:elevation="@dimen/default_elevation"
+                        android:transitionName="poster"
+                        app:layout_constraintCircleRadius="@dimen/default_radius"
+                        app:layout_constraintDimensionRatio="2:3"
+                        app:layout_constraintEnd_toEndOf="@+id/guideline2"
+                        app:layout_constraintStart_toStartOf="@+id/guideline1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.58" />
+
+                    <TextView
+                        android:id="@+id/year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{movieModel.releaseDate}"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text='@{String.format("%d-Mins", movieModel.runTime)}'
+                        android:textSize="18sp"
+                        android:textStyle="italic|bold"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toBottomOf="@id/year" />
+
+                    <TextView
+                        android:id="@+id/score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text='@{String.format("%.2f/10", movieModel.voteAverage)}'
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toBottomOf="@id/duration" />
+
+                    <ImageButton
+                        android:id="@+id/favorate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:elevation="2dp"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="16dp"
+
+                        app:layout_constraintStart_toStartOf="@+id/guideline3"
+                        app:layout_constraintTop_toBottomOf="@id/score"
+
+                        />
+
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginTop="@dimen/detail_info_margin_max"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+                        android:textSize="14sp"
+                        android:text="@{movieModel.overview}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/image" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <ImageView
+                android:id="@+id/back_drop_image"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/back_drop_height_max"
+                android:adjustViewBounds="true"
+                app:loadPosterImage="@{movieModel.posterPath}"
+
+                android:contentDescription="@null"
+                android:elevation="@dimen/default_elevation"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/back_drop_title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/back_drop_height_max"
+                android:elevation="@dimen/default_elevation"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textSize="@dimen/back_drop_title_size"
+                android:text="@{movieModel.originalTitle}"
+                app:layout_constraintBottom_toBottomOf="@id/back_drop_image"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+</layout>
+    <!--  app:layoutDescription="@xml/collapsing_back_drop"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
