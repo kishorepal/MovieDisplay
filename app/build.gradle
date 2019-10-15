@@ -19,7 +19,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "MOVIEDB_API_KEY", "\"da61481c696b839e4db3c86449141754\""
+        buildConfigField "String", "MOVIEDB_API_KEY", "\"{INPUT_API_KEY}\""
         buildConfigField "String", "BASE_URL", "\"http://api.themoviedb.org/3/\""
         buildConfigField "String", "BASE_URL_IMG", "\"http://image.tmdb.org/t/p/\""
         buildConfigField "String", "BASE_URL_IMG_POSTER_SIZE", "\"w342\""
