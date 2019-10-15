@@ -10,7 +10,7 @@ In this Project, I used the best practice of a Project Architecture. I used my J
 # How to Set Movie DB API Key
  
  Change the Build Config filed [MOVIEDB_API_KEY] from [app->build.gradle]. 
- #Example:
+ # Example:
  defaultConfig {
  
                ....................
