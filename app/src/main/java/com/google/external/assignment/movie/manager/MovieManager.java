@@ -6,6 +6,8 @@ import com.google.external.assignment.movie.api.IMovieDBApi;
 import com.google.external.assignment.movie.callback.MovieManagerCallBack;
 import com.google.external.assignment.movie.common.Constants;
 import com.google.external.assignment.movie.model.moviedb.Response;
+import com.google.external.assignment.movie.model.moviedb.Review;
+import com.google.external.assignment.movie.model.moviedb.Video;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +36,11 @@ public class MovieManager extends  BaseManager {
     private static MovieManager mInstance;
 
     public static synchronized MovieManager getInstance(MovieManagerCallBack callBack) {
-        if(mInstance == null) {
+       // if(mInstance == null) {
             mInstance = new MovieManager(callBack);
-        }
+        //}
+
+      // mCallBack = callBack;
         return mInstance;
     }
 
@@ -83,22 +87,22 @@ public class MovieManager extends  BaseManager {
     }
 
 
-    public void getTrailers(Integer videoId) throws Exception {
-        Call<Response> call = apiInvokeService.GetTrailerList(String.valueOf(videoId), (Map)getQueryParams());
-        call.enqueue(new Callback<Response>() {
+    public void getTrailers(Long videoId) throws Exception {
+        Call<Video.Response> call = apiInvokeService.GetTrailerList(String.valueOf(videoId), (Map)getQueryParams());
+        call.enqueue(new Callback<Video.Response>() {
             @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+            public void onResponse(Call<Video.Response> call, retrofit2.Response<Video.Response> response) {
                 Log.i(TAG, "API Calling successful");
                 //Timber.i("API Calling successful");
-                Response aResponse = response.body();
-                mCallBack.onSuccess(aResponse);
+                Video.Response aResponse = response.body();
+                mCallBack.onTrailerSuccess(aResponse);
                 Log.i(TAG, response.message());
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<Video.Response> call, Throwable t) {
                 Log.e(TAG, "The API Calling failed");
-                mCallBack.onError(t);
+                mCallBack.onTrailerError(t);
                 t.printStackTrace();
             }
         });
@@ -107,22 +111,22 @@ public class MovieManager extends  BaseManager {
 
     }
 
-    public void getReviews(Integer videoId) throws Exception {
-        Call<Response> call = apiInvokeService.GetReviews(String.valueOf(videoId), (Map)getQueryParams());
-        call.enqueue(new Callback<Response>() {
+    public void getReviews(Long videoId) throws Exception {
+        Call<Review.Response> call = apiInvokeService.GetReviews(String.valueOf(videoId), (Map)getQueryParams());
+        call.enqueue(new Callback<Review.Response>() {
             @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+            public void onResponse(Call<Review.Response> call, retrofit2.Response<Review.Response> response) {
                 Log.i(TAG, "API Calling successful");
                 //Timber.i("API Calling successful");
-                Response aResponse = response.body();
-                mCallBack.onSuccess(aResponse);
+                Review.Response aResponse = response.body();
+                mCallBack.onReviewSuccess(aResponse);
                 Log.i(TAG, response.message());
             }
 
             @Override
-            public void onFailure(Call<Response> call, Throwable t) {
+            public void onFailure(Call<Review.Response> call, Throwable t) {
                 Log.e(TAG, "The API Calling failed");
-                mCallBack.onError(t);
+                mCallBack.onReviewError(t);
                 t.printStackTrace();
             }
         });

@@ -10,6 +10,9 @@ import java.io.Serializable;
 
 public class Movie implements Parcelable {
 
+        @Expose
+        private Long id;
+
         @SerializedName("popularity")
         @Expose
         private Float popularity;
@@ -55,7 +58,13 @@ public class Movie implements Parcelable {
         private int runTime;
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Float getPopularity() {
         return popularity;
@@ -140,6 +149,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeFloat(popularity);
         dest.writeInt(voteCount);
         dest.writeString(posterPath);
@@ -155,6 +165,7 @@ public class Movie implements Parcelable {
     }
 
     private Movie(Parcel in){
+        id = in.readLong();
         popularity = in.readFloat();
         voteCount = in.readInt();
         posterPath = in.readString();

@@ -114,6 +114,7 @@
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toBottomOf="@id/duration" />
 
+
                     <ImageButton
                         android:id="@+id/favorate"
                         android:layout_width="wrap_content"
@@ -143,9 +144,77 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/image" />
 
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/description" />
+
+                    <TextView
+                        android:id="@+id/trailer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginTop="@dimen/detail_info_margin_min"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+                        android:layout_marginBottom="@dimen/detail_info_margin_min"
+                        android:text="Trailer List"
+                        android:textSize="24sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_trailer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/trailer_title"
+                        tools:listitem="@layout/trailer_list_item"/>
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_trailer" />
+
+                    <TextView
+                        android:id="@+id/reviews_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginTop="@dimen/detail_info_margin_min"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+                        android:layout_marginBottom="@dimen/detail_info_margin_min"
+                        android:text="Review List"
+                        android:textSize="24sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/reviews_title"
+                        tools:listitem="@layout/review_list_item"/>
+
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             </androidx.core.widget.NestedScrollView>
 

@@ -9,6 +9,8 @@ import com.google.external.assignment.movie.common.utilities.SharedPreferenceUti
 import com.google.external.assignment.movie.manager.MovieManager;
 import com.google.external.assignment.movie.model.moviedb.Movie;
 import com.google.external.assignment.movie.model.moviedb.Response;
+import com.google.external.assignment.movie.model.moviedb.Review;
+import com.google.external.assignment.movie.model.moviedb.Video;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-public class MovieViewModel extends AndroidViewModel {
+public class MovieViewModel extends MovieBaseViewModel {
 
     private MutableLiveData<List<Movie>> movieList = new MutableLiveData<>() ;
 
@@ -35,18 +37,7 @@ public class MovieViewModel extends AndroidViewModel {
 
         try {
             mSharedPreferenceUtility = SharedPreferenceUtility.getInstance(application.getApplicationContext());
-            mMovieManager = MovieManager.getInstance(new MovieManagerCallBack() {
-                @Override
-                public void onSuccess(Response response) {
-                    Log.i("MovieViewModel", "OnSuccess Callback invoked");
-                    movieList.postValue(response.getDetailsResult());
-                }
-
-                @Override
-                public void onError(Throwable t) {
-                    t.printStackTrace();
-                }
-            });
+            mMovieManager = MovieManager.getInstance(mMovieManagerCallBack);
 
             String option = mSharedPreferenceUtility.getValue(SharedPreferenceUtility.PREF_KEY_SORT_OPTION, Constants.SORT_BY_POPULARITY);
 
@@ -89,6 +80,39 @@ public class MovieViewModel extends AndroidViewModel {
             ex.printStackTrace();
         }
     }
+
+    public MovieManagerCallBack mMovieManagerCallBack = new MovieManagerCallBack() {
+        @Override
+        public void onSuccess(Response response) {
+            Log.i("MovieViewModel", "OnSuccess Callback invoked");
+            movieList.postValue(response.getDetailsResult());
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            t.printStackTrace();
+        }
+
+        @Override
+        public void onTrailerSuccess(Video.Response response) {
+
+        }
+
+        @Override
+        public void onTrailerError(Throwable t) {
+
+        }
+
+        @Override
+        public void onReviewSuccess(Review.Response response) {
+
+        }
+
+        @Override
+        public void onReviewError(Throwable t) {
+
+        }
+    };
 
     }
 
