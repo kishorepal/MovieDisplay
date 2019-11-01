@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class="ReviewDataBinding">
+
+        <variable
+            name="reviewViewModel"
+            type="com.google.external.assignment.movie.model.moviedb.Review" />
+
+    </data>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:id="@+id/review_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:textSize="16sp"
+            android:text="@{reviewViewModel.author}" />
+
+        <TextView
+            android:id="@+id/review_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/review_author"
+            android:layout_alignLeft="@id/review_author"
+            android:layout_alignRight="@id/review_author"
+            android:layout_alignStart="@id/review_author"
+            android:layout_below="@id/review_author"
+            android:text="@{reviewViewModel.content}"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#000000"/>
+
+    </RelativeLayout>
+</layout>

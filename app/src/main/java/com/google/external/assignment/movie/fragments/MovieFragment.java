@@ -27,12 +27,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class MovieFragment extends BaseFragment {
 
     private static final String TAG = "MovieFragment";
 
     private MovieViewModel movieViewModel;
     private RecyclerView listMovie;
+
+
+    private MovieAdapter aAdapter ;
 
     public MovieFragment() {
         //this.movieViewModel = movieViewModel;
@@ -56,8 +63,6 @@ public class MovieFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View viewFlater =  inflater.inflate(R.layout.fragment_movie_list, container, false);
         init(viewFlater);
-
-
 
         return viewFlater;
     }
@@ -86,7 +91,7 @@ public class MovieFragment extends BaseFragment {
 
         listMovie.setLayoutManager(gridLayoutManager);
         listMovie.setHasFixedSize(true);
-        final MovieAdapter aAdapter = new MovieAdapter(getContext(), this);
+        aAdapter = new MovieAdapter(getContext(), this);
         listMovie.setAdapter(aAdapter);
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         movieViewModel.getMovieList().observe(this, new Observer<List<Movie>>() {
@@ -103,6 +108,30 @@ public class MovieFragment extends BaseFragment {
             }
         });
 
+        handleListScrolling(gridLayoutManager, aAdapter);
+
+    }
+
+    /**
+     *
+     * @param gridLayoutManager
+     * @param aAdapter
+     */
+
+    private void handleListScrolling(final GridLayoutManager gridLayoutManager, final MovieAdapter aAdapter) {
+        listMovie.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastCompleteItemNo = gridLayoutManager.findLastCompletelyVisibleItemPosition();
+
+                if (dy > 0 && lastCompleteItemNo >= aAdapter.getItemCount() - 1) {
+                    Log.i(TAG, String.format("Current Position [%d]", lastCompleteItemNo));
+                    movieViewModel.loadNextPageData();
+                }
+            }
+        });
     }
 
     @Override
@@ -116,6 +145,9 @@ public class MovieFragment extends BaseFragment {
             case R.id.menu_sort_top_rated:
                 movieViewModel.SortByTopRated();
                 break;
+
+            case R.id.menu_sort_favourite:
+                movieViewModel.SortByFavourite();
 
         }
         return super.onContextItemSelected(item);

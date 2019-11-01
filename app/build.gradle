@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 ext {
     retrofit_version = "2.6.2"
     picasso_version = "2.71828"
+    moviedb_api_key = "XXXXX"
+    room_version = "2.2.1"
 }
 
 
@@ -19,7 +21,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "MOVIEDB_API_KEY", "\"{INPUT_API_KEY}\""
+        buildConfigField "String", "MOVIEDB_API_KEY", "\"${moviedb_api_key}\""
         buildConfigField "String", "BASE_URL", "\"http://api.themoviedb.org/3/\""
         buildConfigField "String", "BASE_URL_IMG", "\"http://image.tmdb.org/t/p/\""
         buildConfigField "String", "BASE_URL_IMG_POSTER_SIZE", "\"w342\""
@@ -31,6 +33,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+  compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -38,10 +44,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
+
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
@@ -52,6 +55,18 @@ dependencies {
     implementation "com.jakewharton.timber:timber:3.1.0"
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
+
+
+    // Room components
+    implementation "androidx.room:room-runtime:${room_version}"
+    annotationProcessor "androidx.room:room-compiler:${room_version}"
+    implementation "androidx.room:room-rxjava2:${room_version}"
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+// Because RxAndroid releases are few and far between, it is recommended you also
+// explicitly depend on RxJava's latest version for bug fixes and new features.
+// (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.13'
 
 
 
@@ -66,7 +81,7 @@ dependencies {
     //     AndroidX libraries use this lightweight import for Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
 
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    //annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     // For Kotlin use kapt instead of annotationProcessor
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
@@ -78,7 +93,25 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
 
+
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.material:material:1.0.0-rc01'
+
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    // https://mvnrepository.com/artifact/androidx.databinding/databinding-compiler
+   // implementation group: 'androidx.databinding', name: 'databinding-compiler', version: '3.2.0-alpha16'
+
+
+
+
+    /// Test Lib
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation "androidx.room:room-testing:${room_version}"
+
 
 }

@@ -6,6 +6,7 @@ public class Constants {
 
     public static final String SORT_BY_POPULARITY = "popular";
     public static final String SORT_BY_TOP_RATED = "top_rated";
+    public static final String SORT_BY_FAVOURITE = "favourite";
 
     // FIXME Change the API Key
     public static final String API_KEY_MOVIE_DB = BuildConfig.MOVIEDB_API_KEY;

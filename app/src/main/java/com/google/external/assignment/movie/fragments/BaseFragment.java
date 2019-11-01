@@ -2,6 +2,7 @@ package com.google.external.assignment.movie.fragments;
 
 
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.external.assignment.movie.common.utilities.PicassoUtility;
@@ -13,8 +14,10 @@ public class BaseFragment extends Fragment {
 
 
 
-    @BindingAdapter("loadPosterImage")
-    public  static void loadPosterImage(ImageView view, String imageUrl) {
+    @BindingAdapter(value={"loadPosterImage", "placeholder"}, requireAll = false)
+    public  static void loadPosterImage(ImageView view, String imageUrl, Integer placeholder) {
+
+        Log.i("LoadPOster", String.format("PlaceHolder[%d]", placeholder));
         PicassoUtility.getInstance().loadImage(imageUrl, view);
     }
 

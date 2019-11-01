@@ -8,9 +8,14 @@
 
     <data class="MoveDetailsDataBindings">
 
+<!--        <variable-->
+<!--            name="movieModel"-->
+<!--            type="com.google.external.assignment.movie.model.moviedb.Movie" />-->
         <variable
-            name="movieModel"
-            type="com.google.external.assignment.movie.model.moviedb.Movie" />
+            name="movieViewModel"
+            type="com.google.external.assignment.movie.viewmodel.MovieDetailsViewModel" />
+
+        <variable name="listener" type="com.google.external.assignment.movie.fragments.MovieDetailsFragment.OnClickListener" />
 
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -65,11 +70,12 @@
 
                     <ImageView
                         android:id="@+id/image"
-                        app:loadPosterImage="@{movieModel.posterPath}"
+                        app:loadPosterImage="@{movieViewModel.movie.posterPath}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:elevation="@dimen/default_elevation"
                         android:transitionName="poster"
+
                         app:layout_constraintCircleRadius="@dimen/default_radius"
                         app:layout_constraintDimensionRatio="2:3"
                         app:layout_constraintEnd_toEndOf="@+id/guideline2"
@@ -87,7 +93,7 @@
                         android:id="@+id/year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{movieModel.releaseDate}"
+                        android:text="@{movieViewModel.movie.releaseDate}"
                         android:textSize="24sp"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text='@{String.format("%d-Mins", movieModel.runTime)}'
+                        android:text='@{String.format("%d-Mins", movieViewModel.movie.runTime)}'
                         android:textSize="18sp"
                         android:textStyle="italic|bold"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -108,11 +114,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text='@{String.format("%.2f/10", movieModel.voteAverage)}'
+                        android:text='@{String.format("%.2f/10", movieViewModel.movie.voteAverage)}'
                         android:textSize="13sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toBottomOf="@id/duration" />
+
 
                     <ImageButton
                         android:id="@+id/favorate"
@@ -124,6 +131,9 @@
                         android:paddingLeft="16dp"
                         android:paddingTop="6dp"
                         android:paddingRight="16dp"
+                        android:src="@{movieViewModel.movie.favourite? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselect }"
+                        android:onClick="@{(view)-> listener.onClickFavouriteButton(view, movieViewModel.movie) }"
+
 
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toBottomOf="@id/score"
@@ -139,13 +149,81 @@
                         android:layout_marginTop="@dimen/detail_info_margin_max"
                         android:layout_marginRight="@dimen/detail_info_margin_max"
                         android:textSize="14sp"
-                        android:text="@{movieModel.overview}"
+                        android:text="@{movieViewModel.movie.overview}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/image" />
+
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/description" />
+
+                    <TextView
+                        android:id="@+id/trailer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginTop="@dimen/detail_info_margin_min"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+                        android:layout_marginBottom="@dimen/detail_info_margin_min"
+                        android:text="Trailer List"
+                        android:textSize="24sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_trailer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/trailer_title"
+                        tools:listitem="@layout/trailer_list_item"/>
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/list_trailer" />
+
+                    <TextView
+                        android:id="@+id/reviews_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/detail_info_margin_max"
+                        android:layout_marginTop="@dimen/detail_info_margin_min"
+                        android:layout_marginRight="@dimen/detail_info_margin_max"
+                        android:layout_marginBottom="@dimen/detail_info_margin_min"
+                        android:text="Review List"
+                        android:textSize="24sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/reviews_title"
+                        tools:listitem="@layout/review_list_item"/>
 
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             </androidx.core.widget.NestedScrollView>
 
@@ -154,8 +232,8 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/back_drop_height_max"
                 android:adjustViewBounds="true"
-                app:loadPosterImage="@{movieModel.posterPath}"
-
+                app:loadPosterImage="@{movieViewModel.movie.posterPath}"
+                app:placeholder="@{3}"
                 android:contentDescription="@null"
                 android:elevation="@dimen/default_elevation"
                 android:fitsSystemWindows="true"
@@ -173,7 +251,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textSize="@dimen/back_drop_title_size"
-                android:text="@{movieModel.originalTitle}"
+                android:text="@{movieViewModel.movie.originalTitle}"
                 app:layout_constraintBottom_toBottomOf="@id/back_drop_image"
                 app:layout_constraintStart_toStartOf="parent" />
 

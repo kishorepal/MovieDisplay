@@ -3,59 +3,102 @@ package com.google.external.assignment.movie.model.moviedb;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Movie implements Parcelable {
+@Entity(tableName = "MOVIE")
+public class Movie extends BaseObservable implements Parcelable {
+
+
+        @Expose
+        @PrimaryKey
+        @ColumnInfo
+        private Long id;
 
         @SerializedName("popularity")
         @Expose
+        @ColumnInfo
         private Float popularity;
 
         @SerializedName("vote_count")
         @Expose
+        @ColumnInfo
         private Integer voteCount;
 
         @SerializedName("poster_path")
         @Expose
+        @ColumnInfo
         private String posterPath;
 
         @SerializedName("original_title")
         @Expose
+        @ColumnInfo
         private String originalTitle;
 
 
         @SerializedName("title")
         @Expose
+        @ColumnInfo
         private String title;
 
         @SerializedName("overview")
         @Expose
+        @ColumnInfo
         private String overview;
 
         @SerializedName("release_date")
         @Expose
+        @ColumnInfo
         private String releaseDate;
 
         @SerializedName("vote_average")
         @Expose
+        @ColumnInfo
         private double voteAverage;
 
 
 
         @SerializedName("adult")
         @Expose
+        @ColumnInfo
         private boolean adult;
 
 
         @SerializedName("runtime")
         @Expose
+        @ColumnInfo
         private int runTime;
 
 
+        /**
+         * Favourite Option from UI
+         */
+        @ColumnInfo
+        @Bindable
+        private boolean favourite;
 
+
+        public  Movie () {
+
+        }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Float getPopularity() {
         return popularity;
@@ -138,8 +181,17 @@ public class Movie implements Parcelable {
     }
 
 
+    public boolean getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeFloat(popularity);
         dest.writeInt(voteCount);
         dest.writeString(posterPath);
@@ -150,11 +202,13 @@ public class Movie implements Parcelable {
         dest.writeDouble(voteAverage);
         dest.writeByte((byte)(adult ?1:0));
         dest.writeInt(runTime);
+        dest.writeByte((byte)(favourite?1:0));
 
 
     }
 
     private Movie(Parcel in){
+        id = in.readLong();
         popularity = in.readFloat();
         voteCount = in.readInt();
         posterPath = in.readString();
@@ -165,6 +219,8 @@ public class Movie implements Parcelable {
         voteAverage = in.readDouble();
         adult = in.readByte() != 0;
         runTime = in.readInt();
+        favourite = in.readByte() != 0;
+
     }
 
 
@@ -181,6 +237,7 @@ public class Movie implements Parcelable {
 
 
 
+    @Ignore
     public final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
 
         @Override

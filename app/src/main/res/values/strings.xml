@@ -4,4 +4,6 @@
     <string name="menu_sort_popularity"> Sort By Popularity</string>
 
     <string name="menu_sort_top_rated"> Sort By Top Rated</string>
+
+    <string name="menu_sort_favourite"> Sort By Favourity</string>
 </resources>

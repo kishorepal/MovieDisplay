@@ -3,6 +3,8 @@ package com.google.external.assignment.movie.api;
 import android.database.Observable;
 
 import com.google.external.assignment.movie.model.moviedb.Response;
+import com.google.external.assignment.movie.model.moviedb.Review;
+import com.google.external.assignment.movie.model.moviedb.Video;
 
 import java.util.Map;
 
@@ -24,7 +26,7 @@ public interface IMovieDBApi {
      */
     @GET("movie/{option}")
     Call<Response> GetMovieList(@Path("option") String option,
-                                      @QueryMap Map<String, String> queryParams);
+                                      @QueryMap Map<String, Object> queryParams);
 
     /**
      *
@@ -35,8 +37,8 @@ public interface IMovieDBApi {
      * @return
      */
     @GET("movie/{id}/videos")
-    Call<Response> GetTrailerList(@Path("id") String videoId,
-                                @QueryMap Map<String, String> queryParams);
+    Call<Video.Response> GetTrailerList(@Path("id") String videoId,
+                               @QueryMap Map<String, String> queryParams);
 
 
     /**
@@ -48,7 +50,7 @@ public interface IMovieDBApi {
      * @return
      */
     @GET("movie/{id}/reviews")
-    Call<Response> GetReviews(@Path("id") String videoId,
-                                  @QueryMap Map<String, String> queryParams);
+    Call<Review.Response> GetReviews(@Path("id") String videoId,
+                            @QueryMap Map<String, String> queryParams);
 
 }
