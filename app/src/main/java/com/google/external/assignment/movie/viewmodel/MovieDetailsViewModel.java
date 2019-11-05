@@ -2,6 +2,7 @@ package com.google.external.assignment.movie.viewmodel;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.external.assignment.movie.callback.MovieManagerCallBack;
 import com.google.external.assignment.movie.common.Constants;
@@ -12,6 +13,7 @@ import com.google.external.assignment.movie.model.moviedb.Response;
 import com.google.external.assignment.movie.model.moviedb.Review;
 import com.google.external.assignment.movie.model.moviedb.Video;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,8 +41,6 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Review>> reviewList = new MutableLiveData<>();
 
-    private ObservableField<Boolean> favorite = new ObservableField<>();
-
 
 
     private MovieManager mMovieManager;
@@ -51,6 +51,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         try {
             mMovieManager = MovieManager.getInstance(mMovieManagerCallBack, application);
         } catch (Exception ex) {
+            Toast.makeText(application.getApplicationContext(),ex.getMessage(), Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
     }
@@ -64,13 +65,6 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         mMovieManager.getReviews(videoId);
     }
 
-    public ObservableField<Boolean> getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(ObservableField<Boolean> favorite) {
-        this.favorite = favorite;
-    }
 
     public ObservableField<Movie> getMovie() {
         return movie;
@@ -126,23 +120,34 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         @Override
         public void onTrailerSuccess(Video.Response response) {
             Log.i(TAG, "onTrailerSuccess Callback invoked");
+            if(response == null) {
+                return;
+            }
             videoList.postValue(response.getVideos());
         }
 
         @Override
         public void onTrailerError(Throwable t) {
             t.printStackTrace();
+            Toast.makeText(getApplication().getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            videoList.postValue(new ArrayList<Video>());
         }
 
         @Override
         public void onReviewSuccess(Review.Response response) {
             Log.i(TAG, "onTrailerSuccess Callback invoked");
+
+            if(response == null) {
+                return;
+            }
             reviewList.postValue(response.getReviews());
         }
 
         @Override
         public void onReviewError(Throwable t) {
             t.printStackTrace();
+            Toast.makeText(getApplication().getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            reviewList.postValue(new ArrayList<Review>());
         }
     };
 }

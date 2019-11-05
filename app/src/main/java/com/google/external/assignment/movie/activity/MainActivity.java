@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.external.assignment.movie.BuildConfig;
 import com.google.external.assignment.movie.R;
@@ -65,15 +66,18 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
-            Toolbar aToolbar = (Toolbar) findViewById(R.id.toolbar);
+            //Toolbar aToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-            setSupportActionBar(aToolbar);
+            //setSupportActionBar(aToolbar);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
 
 
         } catch (Exception ex) {
+
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+
             ex.printStackTrace();
         }
 

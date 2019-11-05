@@ -189,6 +189,24 @@ public class Movie extends BaseObservable implements Parcelable {
         this.favourite = favourite;
     }
 
+
+    public Movie copyMovie() {
+        Movie newMovie = new Movie();
+        newMovie.setId(this.getId());
+        newMovie.setFavourite(this.getFavourite());
+        newMovie.setAdult(this.isAdult());
+        newMovie.setOriginalTitle(this.getOriginalTitle());
+        newMovie.setOverview(this.getOverview());
+        newMovie.setPopularity(this.getPopularity());
+        newMovie.setPosterPath(this.getPosterPath());
+        newMovie.setReleaseDate(this.getReleaseDate());
+        newMovie.setRunTime(this.getRunTime());
+        newMovie.setTitle(this.getTitle());
+        newMovie.setVoteAverage(this.getVoteAverage());
+        newMovie.setVoteCount(this.getVoteCount());
+        return newMovie;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);

@@ -13,6 +13,7 @@ import com.google.external.assignment.movie.model.moviedb.Response;
 import com.google.external.assignment.movie.model.moviedb.Review;
 import com.google.external.assignment.movie.model.moviedb.Video;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.room.util.StringUtil;
+
+import org.apache.commons.lang3.StringUtils;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -63,13 +67,14 @@ public class MovieViewModel extends MovieBaseViewModel {
             String option = mSharedPreferenceUtility.getValue(SharedPreferenceUtility.PREF_KEY_SORT_OPTION, Constants.SORT_BY_POPULARITY);
             mCurrentPage = 1;
             sortOption.postValue(option);
-            if(option == Constants.SORT_BY_FAVOURITE) {
+            if(StringUtils.compare(option, Constants.SORT_BY_FAVOURITE) == 0) {
                SortByFavourite();
                return;
             }
             mMovieManager.getMovieInfo(option, mCurrentPage);
 
         } catch (Exception ex) {
+            Toast.makeText(getApplication().getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
 
@@ -94,6 +99,7 @@ public class MovieViewModel extends MovieBaseViewModel {
             sortOption.postValue(Constants.SORT_BY_POPULARITY);
             mMovieManager.getMovieInfo(Constants.SORT_BY_POPULARITY, mCurrentPage);
         } catch (Exception ex) {
+            Toast.makeText(getApplication().getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
     }
@@ -106,6 +112,7 @@ public class MovieViewModel extends MovieBaseViewModel {
             sortOption.postValue(Constants.SORT_BY_TOP_RATED);
             mMovieManager.getMovieInfo(Constants.SORT_BY_TOP_RATED, mCurrentPage);
         } catch (Exception ex) {
+            Toast.makeText(getApplication().getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
     }
@@ -123,16 +130,18 @@ public class MovieViewModel extends MovieBaseViewModel {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((movieList)->
                         {
-                            Log.i("INSERT", "Successfully inserted");
+                            Log.i("FETCH", "Successfully inserted");
                             this.movieList.postValue(movieList);
                         }));
 
 
             } catch (Exception ex) {
+                Toast.makeText(getApplication().getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                 ex.printStackTrace();
             }
 
         } catch (Exception ex) {
+            Toast.makeText(getApplication().getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
     }
@@ -186,6 +195,8 @@ public class MovieViewModel extends MovieBaseViewModel {
         @Override
         public void onError(Throwable t) {
             t.printStackTrace();
+            Toast.makeText(getApplication().getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            movieList.postValue(new ArrayList<Movie>());
         }
 
         @Override

@@ -98,6 +98,7 @@ public class MovieManager extends  BaseManager {
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
                 Log.e(TAG, "The API Calling failed");
+
                 mCallBack.onError(t);
                 t.printStackTrace();
             }

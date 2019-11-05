@@ -52,6 +52,7 @@ public class MovieFragment extends BaseFragment {
             getActivity().getWindow().setBackgroundDrawable(null);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Toast.makeText(this.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         setHasOptionsMenu(true);

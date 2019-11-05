@@ -1,55 +1,40 @@
 package com.google.external.assignment.movie.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.external.assignment.movie.R;
 import com.google.external.assignment.movie.activity.MainActivity;
-import com.google.external.assignment.movie.adapter.MovieAdapter;
 import com.google.external.assignment.movie.adapter.ReviewAdapter;
 import com.google.external.assignment.movie.adapter.VideoAdapter;
-import com.google.external.assignment.movie.common.utilities.PicassoUtility;
 import com.google.external.assignment.movie.databinding.MoveDetailsDataBindings;
-import com.google.external.assignment.movie.databinding.ReviewDataBinding;
 import com.google.external.assignment.movie.model.moviedb.Movie;
 import com.google.external.assignment.movie.model.moviedb.Review;
 import com.google.external.assignment.movie.model.moviedb.Video;
 import com.google.external.assignment.movie.viewmodel.MovieDetailsViewModel;
-import com.google.external.assignment.movie.viewmodel.MovieViewModel;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.motion.widget.MotionLayout;
-import androidx.core.util.Consumer;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Action;
-import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subscribers.DisposableSubscriber;
 
 public class MovieDetailsFragment extends BaseFragment {
 
@@ -58,9 +43,6 @@ public class MovieDetailsFragment extends BaseFragment {
 
     private MovieDetailsViewModel mMovieDetailsViewModel;
 
-    private MotionLayout mMotionLayout;
-    private TextView mBackDropTitle, mYear, mDuration, mScore, mDescription;
-    private ImageButton mFavorite;
     private RecyclerView listViewReview;
 
     private RecyclerView listViewTrailer;
@@ -175,6 +157,25 @@ public class MovieDetailsFragment extends BaseFragment {
 
     }
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if(savedInstanceState == null) {
+            return;
+        }
+        Movie movie = savedInstanceState.getParcelable("movie");
+
+        Log.i(TAG, "Restoring....");
+    }
+
     private void setActionBar() {
         try {
             ((MainActivity) getActivity()).getSupportActionBar().setTitle("Movie Details");
@@ -182,6 +183,7 @@ public class MovieDetailsFragment extends BaseFragment {
             ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Toast.makeText(this.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -208,13 +210,13 @@ public class MovieDetailsFragment extends BaseFragment {
             try {
 
                 Log.i(TAG, "Click on Favourite Button");
-                aMovie.setFavourite(!aMovie.getFavourite());
-                mCompositeDisposable.add(mMovieDetailsViewModel.insertMovieToRoomDB(aMovie)
+                Movie newMovie = aMovie.copyMovie();
+                newMovie.setFavourite(!aMovie.getFavourite());
+                mCompositeDisposable.add(mMovieDetailsViewModel.insertMovieToRoomDB(newMovie)
                                          .subscribeOn(Schedulers.io())
                                          .observeOn(AndroidSchedulers.mainThread())
                                           . subscribe(()->{
-                                              mMovieDetailsViewModel.getMovie().set(aMovie);
-                                              mMovie.setFavourite(aMovie.getFavourite());
+                                              mMovieDetailsViewModel.getMovie().set(newMovie);
                                           }));
 
             } catch (Exception ex) {
@@ -226,6 +228,8 @@ public class MovieDetailsFragment extends BaseFragment {
 
         }
     }
+
+
 
 
 }
