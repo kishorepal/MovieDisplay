@@ -1,6 +1,7 @@
 package com.google.external.assignment.movie.common.utilities;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -26,7 +27,10 @@ public class PicassoUtility {
     }
 
     public void loadImage(String imageUrl, ImageView imageButton) {
-        Picasso.get().load(String.format(Constants.BASE_URL_PICASSO,imageUrl )).into(imageButton);
+        Picasso.get().
+                load(String.format(Constants.BASE_URL_PICASSO,imageUrl ))
+                .config(Bitmap.Config.RGB_565)
+                .into(imageButton);
     }
 
 

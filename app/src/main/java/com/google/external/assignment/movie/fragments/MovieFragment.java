@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.google.external.assignment.movie.R;
 import com.google.external.assignment.movie.activity.MainActivity;
 import com.google.external.assignment.movie.adapter.MovieAdapter;
@@ -84,14 +89,40 @@ public class MovieFragment extends BaseFragment {
     private void init(View viewFlater) {
 
         listMovie = (RecyclerView)viewFlater.findViewById(R.id.list_movie);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+
+//        //FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
+//        //layoutManager.setFlexDirection(FlexDirection.COLUMN);
+//        //layoutManager.setJustifyContent(JustifyContent.FLEX_END);
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.column_count));
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        listMovie.setLayoutManager(gridLayoutManager);
+
+        listMovie.setHasFixedSize(true);
+
+
+//        val flexboxLayoutManager = FlexboxLayoutManager(this).apply {
+//            flexWrap = FlexWrap.WRAP
+//            flexDirection = FlexDirection.ROW
+//            alignItems = AlignItems.STRETCH
+//        }
+
+//        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
+//        layoutManager.setFlexWrap(FlexWrap.WRAP);
+//        layoutManager.setAlignItems(AlignItems.STRETCH);
+//        layoutManager.setFlexDirection(FlexDirection.ROW);
+//       // layoutManager.setJustifyContent(JustifyContent.CENTER);
+//        listMovie.setLayoutManager(layoutManager);
+
+
+
 
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-        listMovie.setLayoutManager(gridLayoutManager);
-        listMovie.setHasFixedSize(true);
+        //listMovie.setLayoutManager(layoutManager);
+
         aAdapter = new MovieAdapter(getContext(), this);
         listMovie.setAdapter(aAdapter);
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
@@ -120,6 +151,22 @@ public class MovieFragment extends BaseFragment {
      */
 
     private void handleListScrolling(final GridLayoutManager gridLayoutManager, final MovieAdapter aAdapter) {
+        listMovie.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastCompleteItemNo = gridLayoutManager.findLastCompletelyVisibleItemPosition();
+
+                if (dy > 0 && lastCompleteItemNo >= aAdapter.getItemCount() - 1) {
+                    Log.i(TAG, String.format("Current Position [%d]", lastCompleteItemNo));
+                    movieViewModel.loadNextPageData();
+                }
+            }
+        });
+    }
+
+    private void handleListScrolling(final FlexboxLayoutManager gridLayoutManager, final MovieAdapter aAdapter) {
         listMovie.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {

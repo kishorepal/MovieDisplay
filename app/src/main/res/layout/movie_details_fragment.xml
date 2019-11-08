@@ -145,11 +145,11 @@
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/detail_info_margin_max"
-                        android:layout_marginTop="@dimen/detail_info_margin_max"
-                        android:layout_marginRight="@dimen/detail_info_margin_max"
+
                         android:textSize="14sp"
                         android:text="@{movieViewModel.movie.overview}"
+
+                        android:justificationMode="inter_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/image" />
 
@@ -166,7 +166,7 @@
 
                     <TextView
                         android:id="@+id/trailer_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/detail_info_margin_max"
                         android:layout_marginTop="@dimen/detail_info_margin_min"

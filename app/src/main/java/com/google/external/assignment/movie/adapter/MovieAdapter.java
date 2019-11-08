@@ -122,9 +122,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
             try{
                 Log.i(TAG, "Click on Favourite Button");
                 view.setSelected(true);
-//                Toast.makeText(mContext, String.format("Moview ID[%s] ", aMovie.getTitle()), Toast.LENGTH_LONG).show();
-//                MovieDetailsFragment movieDeatils =  new MovieDetailsFragment(aMovie);
-//                ((MainActivity)mFragment.getActivity()).replaceFragment(movieDeatils);
             } catch (Exception ex) {
                 Log.e(TAG, ex.getMessage());
                 ex.printStackTrace();

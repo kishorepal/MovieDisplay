@@ -1,4 +1,7 @@
 <resources>
+
+
+
     <string name="app_name">MovieDisplay</string>
 
     <string name="menu_sort_popularity"> Sort By Popularity</string>

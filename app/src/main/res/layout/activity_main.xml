@@ -5,14 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/movies_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="17"
         >
 
     </FrameLayout>
+
+<!--
+ <com.google.android.material.bottomnavigation.BottomNavigationView
+         android:id="@+id/bttom_nav"
+         android:layout_height="80dp"
+         android:layout_width="match_parent"
+         android:layout_gravity="bottom"
+         android:background="#fafafa"
+         app:itemIconTint="@color/design_default_color_primary"
+         app:itemTextColor="#212121"
+         android:theme="@style/ThemeOverlay.Shrine.BottomNavigation"
+         app:menu="@menu/main_menu"
+     />
+-->
+
 
 </LinearLayout>

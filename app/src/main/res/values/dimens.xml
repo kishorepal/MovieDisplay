@@ -60,6 +60,8 @@
     <dimen name="detail_info_margin_vertical">4dp</dimen>
     <dimen name="detail_info_margin_max">32dp</dimen>
     <dimen name="detail_info_margin_min">16dp</dimen>
+    <dimen name="contents_text_size">12sp</dimen>
+    <dimen name="header_text_size">16sp</dimen>
 
 
 </resources>

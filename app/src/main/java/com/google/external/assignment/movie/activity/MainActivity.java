@@ -66,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
-            //Toolbar aToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-            //setSupportActionBar(aToolbar);
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
 
@@ -106,17 +102,6 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportFragmentManager().getBackStackEntryCount()>1){
             getSupportFragmentManager().popBackStack();
         }
-
-        //super.onBackPressed();
-
-         /* BaseFragment f = (BaseFragment) getSupportFragmentManager().findFragmentById(R.id.movies_container);
-        if (f instanceof MovieFragment ) {//the fragment on which you want to handle your back press
-            Log.i("BACK PRESSED", "BACK PRESSED");
-        }else{
-
-
-        }*/
-
     }
 
 
