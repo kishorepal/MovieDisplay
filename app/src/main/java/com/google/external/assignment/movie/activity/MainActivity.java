@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.external.assignment.movie.BuildConfig;
 import com.google.external.assignment.movie.R;
 import com.google.external.assignment.movie.adapter.MovieAdapter;
@@ -23,6 +25,7 @@ import com.google.external.assignment.movie.viewmodel.MovieViewModel;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,18 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     public static final String MOVIES_FRAGMENT_TAG = "MOVIE_CONTAINER";
-
-
     private RecyclerView listMovie;
     private MovieViewModel movieViewModel;
+    private BottomNavigationView bottomNavigationView;
+    private BaseFragment mFragment;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //requestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().setBackgroundDrawable(null);
+        //getWindow().setBackgroundDrawable(null);
         init();
     }
 
@@ -56,24 +60,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        mFragment= (BaseFragment) getSupportFragmentManager().findFragmentByTag(MOVIES_FRAGMENT_TAG);
+        if (mFragment == null) {
+            mFragment = new MovieFragment();
+            replaceFragment(mFragment);
+        }
 
-        BaseFragment mFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(MOVIES_FRAGMENT_TAG);
-        if (mFragment == null)
-            replaceFragment(new MovieFragment());
+
     }
 
     private void init() {
 
         try {
-
+            // getSupportActionBar().setHideOnContentScrollEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
+            bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_nav);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                   if(mFragment != null) {
+                       mFragment.handleBottomNavigation(menuItem);
+                   }
+                   return true;
+                }
+            });
+
 
 
         } catch (Exception ex) {
-
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-
             ex.printStackTrace();
         }
 
@@ -103,10 +119,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
         }
     }
-
-
-
-
 }
     
 

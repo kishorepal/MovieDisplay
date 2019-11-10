@@ -8,12 +8,12 @@
     <item
         android:id="@+id/menu_sort_top_rated"
         android:title="@string/menu_sort_top_rated"
-        android:icon="@drawable/ic_popular_24dp"/>
+        android:icon="@drawable/ic_top_rated"/>
 
     <item
         android:id="@+id/menu_sort_favourite"
         android:title="@string/menu_sort_favourite"
-        android:icon="@drawable/ic_popular_24dp"/>
+        android:icon="@drawable/ic_favorite_selected"/>
 
 
    <!-- <item

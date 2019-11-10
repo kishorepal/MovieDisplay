@@ -17,19 +17,19 @@
 
     </FrameLayout>
 
-<!--
- <com.google.android.material.bottomnavigation.BottomNavigationView
-         android:id="@+id/bttom_nav"
-         android:layout_height="80dp"
-         android:layout_width="match_parent"
-         android:layout_gravity="bottom"
-         android:background="#fafafa"
-         app:itemIconTint="@color/design_default_color_primary"
-         app:itemTextColor="#212121"
-         android:theme="@style/ThemeOverlay.Shrine.BottomNavigation"
-         app:menu="@menu/main_menu"
-     />
--->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        app:itemIconTint="@drawable/bottom_navigation_colors"
+        app:itemTextColor="@drawable/bottom_navigation_colors"
+        android:theme="@style/ThemeOverlay.Shrine.BottomNavigation"
+
+
+        app:menu="@menu/main_menu"
+        />
 
 
 </LinearLayout>

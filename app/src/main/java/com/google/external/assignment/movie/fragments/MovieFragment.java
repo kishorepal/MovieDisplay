@@ -74,18 +74,6 @@ public class MovieFragment extends BaseFragment {
     }
 
 
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-       // inflater.inflate(R.menu.main_menu, menu);
-
-    }
-
-
     private void init(View viewFlater) {
 
         listMovie = (RecyclerView)viewFlater.findViewById(R.id.list_movie);
@@ -183,9 +171,12 @@ public class MovieFragment extends BaseFragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void handleBottomNavigation(MenuItem menuItem) {
+        handleMenuItem(menuItem);
+    }
 
-        switch (item.getItemId()) {
+    private void handleMenuItem(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case R.id.menu_sort_popularity:
                 movieViewModel.SortByPopularity();
                 break;
@@ -198,6 +189,12 @@ public class MovieFragment extends BaseFragment {
                 movieViewModel.SortByFavourite();
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        handleMenuItem(item);
         return super.onContextItemSelected(item);
     }
 

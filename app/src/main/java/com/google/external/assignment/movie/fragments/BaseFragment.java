@@ -3,6 +3,7 @@ package com.google.external.assignment.movie.fragments;
 
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.google.external.assignment.movie.common.utilities.PicassoUtility;
@@ -20,5 +21,11 @@ public class BaseFragment extends Fragment {
         Log.i("LoadPOster", String.format("PlaceHolder[%d]", placeholder));
         PicassoUtility.getInstance().loadImage(imageUrl, view);
     }
+
+
+    public void handleBottomNavigation(MenuItem menuItem){
+
+    }
+
 
 }
