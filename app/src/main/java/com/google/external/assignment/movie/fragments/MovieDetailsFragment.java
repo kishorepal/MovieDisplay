@@ -99,6 +99,8 @@ public class MovieDetailsFragment extends BaseFragment {
         return movieDetailsDataBinding.getRoot();
     }
 
+
+
     private void init(View aView) {
 
         try {
@@ -162,6 +164,7 @@ public class MovieDetailsFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity)getActivity()).setBottomNavVisibility(View.GONE);
     }
 
     @Override
@@ -178,7 +181,7 @@ public class MovieDetailsFragment extends BaseFragment {
 
     private void setActionBar() {
         try {
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle("Movie Details");
+            ((MainActivity) getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.text_movie_details));
             ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         } catch (Exception ex) {

@@ -9,4 +9,7 @@
     <string name="menu_sort_top_rated"> Sort By Top Rated</string>
 
     <string name="menu_sort_favourite"> Sort By Favourity</string>
+    <string name="text_movie_details">Movie Details</string>
+    <string name="text_trailer_list">Trailer List</string>
+    <string name="text_review_list">Review List</string>
 </resources>

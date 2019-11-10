@@ -73,6 +73,11 @@ public class MovieFragment extends BaseFragment {
         return viewFlater;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setBottomNavVisibility(View.VISIBLE);
+    }
 
     private void init(View viewFlater) {
 

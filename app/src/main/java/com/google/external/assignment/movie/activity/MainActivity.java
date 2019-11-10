@@ -16,12 +16,17 @@ import com.google.external.assignment.movie.BuildConfig;
 import com.google.external.assignment.movie.R;
 import com.google.external.assignment.movie.adapter.MovieAdapter;
 import com.google.external.assignment.movie.callback.MovieManagerCallBack;
+import com.google.external.assignment.movie.common.Constants;
+import com.google.external.assignment.movie.common.utilities.SharedPreferenceUtility;
 import com.google.external.assignment.movie.fragments.BaseFragment;
+import com.google.external.assignment.movie.fragments.MovieDetailsFragment;
 import com.google.external.assignment.movie.fragments.MovieFragment;
 import com.google.external.assignment.movie.manager.MovieManager;
 import com.google.external.assignment.movie.model.moviedb.Movie;
 import com.google.external.assignment.movie.model.moviedb.Response;
 import com.google.external.assignment.movie.viewmodel.MovieViewModel;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -76,6 +81,17 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_nav);
+
+            String option = SharedPreferenceUtility.getInstance(this).getValue(SharedPreferenceUtility.PREF_KEY_SORT_OPTION,
+                    Constants.SORT_BY_POPULARITY);
+
+            if(StringUtils.compare(option, Constants.SORT_BY_FAVOURITE) == 0) {
+                bottomNavigationView.setSelectedItemId(R.id.menu_sort_favourite);
+            } else if(StringUtils.compare(option, Constants.SORT_BY_TOP_RATED) == 0){
+                bottomNavigationView.setSelectedItemId(R.id.menu_sort_top_rated);
+            } else {
+                bottomNavigationView.setSelectedItemId(R.id.menu_sort_popularity);
+            }
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -96,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
      }
 
     public void replaceFragment(BaseFragment fragment) {
+
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.movies_container, fragment, MOVIES_FRAGMENT_TAG)
                 .addToBackStack( MOVIES_FRAGMENT_TAG)
@@ -118,6 +136,10 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportFragmentManager().getBackStackEntryCount()>1){
             getSupportFragmentManager().popBackStack();
         }
+  }
+
+    public void setBottomNavVisibility(int visibility) {
+        bottomNavigationView.setVisibility(visibility);
     }
 }
     

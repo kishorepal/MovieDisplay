@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 ext {
     retrofit_version = "2.6.2"
     picasso_version = "2.71828"
-    moviedb_api_key = "da61481c696b839e4db3c86449141754"
+    moviedb_api_key = "XXXXX"
     room_version = "2.2.1"
     flex_version = "1.1.1"
 }

@@ -94,7 +94,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{movieViewModel.movie.releaseDate}"
-                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical"
+                        android:textSize="@dimen/header_text_size"
+                        android:justificationMode="inter_word"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,7 +107,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text='@{String.format("%d-Mins", movieViewModel.movie.runTime)}'
-                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical"
+                        android:textSize="@dimen/contents_text_size"
+                        android:justificationMode="inter_word"
                         android:textStyle="italic|bold"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toBottomOf="@id/year" />
@@ -115,7 +121,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text='@{String.format("%.2f/10", movieViewModel.movie.voteAverage)}'
-                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical"
+                        android:textSize="@dimen/contents_text_size"
+                        android:justificationMode="inter_word"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/guideline3"
                         app:layout_constraintTop_toBottomOf="@id/duration" />
@@ -145,11 +154,14 @@
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:textSize="14sp"
+                        android:layout_marginTop="@dimen/detail_info_margin_vertical"
+                        android:layout_marginBottom="@dimen/detail_info_margin_vertical"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical"
+                        android:textSize="@dimen/contents_text_size"
+                        android:justificationMode="inter_word"
                         android:text="@{movieViewModel.movie.overview}"
 
-                        android:justificationMode="inter_word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/image" />
 
@@ -168,12 +180,13 @@
                         android:id="@+id/trailer_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/detail_info_margin_max"
-                        android:layout_marginTop="@dimen/detail_info_margin_min"
-                        android:layout_marginRight="@dimen/detail_info_margin_max"
-                        android:layout_marginBottom="@dimen/detail_info_margin_min"
-                        android:text="Trailer List"
-                        android:textSize="24sp"
+                        android:layout_marginTop="@dimen/detail_info_margin_vertical"
+                        android:layout_marginBottom="@dimen/detail_info_margin_vertical"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:textSize="@dimen/header_text_size"
+                        android:text="@string/text_trailer_list"
+                        android:textColor="@color/black"
                         android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider1" />
@@ -182,6 +195,8 @@
                         android:id="@+id/list_trailer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/detail_info_margin_vertical"
+                        android:layout_marginBottom="@dimen/detail_info_margin_vertical"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/trailer_title"
                         tools:listitem="@layout/trailer_list_item"/>
@@ -201,13 +216,14 @@
                         android:id="@+id/reviews_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/detail_info_margin_max"
-                        android:layout_marginTop="@dimen/detail_info_margin_min"
-                        android:layout_marginRight="@dimen/detail_info_margin_max"
-                        android:layout_marginBottom="@dimen/detail_info_margin_min"
-                        android:text="Review List"
-                        android:textSize="24sp"
+                        android:layout_marginTop="@dimen/detail_info_margin_vertical"
+                        android:layout_marginBottom="@dimen/detail_info_margin_vertical"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="left"
+                        android:textSize="@dimen/header_text_size"
                         android:visibility="visible"
+                        android:text="@string/text_review_list"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider2" />
 
@@ -215,6 +231,8 @@
                         android:id="@+id/list_review"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/detail_info_margin_vertical"
+                        android:layout_marginBottom="@dimen/detail_info_margin_vertical"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/reviews_title"
                         tools:listitem="@layout/review_list_item"/>
