@@ -83,32 +83,12 @@ public class MovieFragment extends BaseFragment {
 
         listMovie = (RecyclerView)viewFlater.findViewById(R.id.list_movie);
 
-//        //FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
-//        //layoutManager.setFlexDirection(FlexDirection.COLUMN);
-//        //layoutManager.setJustifyContent(JustifyContent.FLEX_END);
-
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), getResources().getInteger(R.integer.column_count));
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         listMovie.setLayoutManager(gridLayoutManager);
 
         listMovie.setHasFixedSize(true);
-
-
-//        val flexboxLayoutManager = FlexboxLayoutManager(this).apply {
-//            flexWrap = FlexWrap.WRAP
-//            flexDirection = FlexDirection.ROW
-//            alignItems = AlignItems.STRETCH
-//        }
-
-//        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
-//        layoutManager.setFlexWrap(FlexWrap.WRAP);
-//        layoutManager.setAlignItems(AlignItems.STRETCH);
-//        layoutManager.setFlexDirection(FlexDirection.ROW);
-//       // layoutManager.setJustifyContent(JustifyContent.CENTER);
-//        listMovie.setLayoutManager(layoutManager);
-
-
 
 
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);

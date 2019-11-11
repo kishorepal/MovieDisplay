@@ -120,6 +120,7 @@ public class MovieDetailsFragment extends BaseFragment {
             final VideoAdapter aVideoAdapter =  new VideoAdapter(getContext(), this);
             listViewTrailer.setAdapter(aVideoAdapter);
 
+            mMovieDetailsViewModel.getMovieDetails(mMovie.getId());
 
 
             mMovieDetailsViewModel.getVideoList().observe(this, new Observer<List<Video>>() {

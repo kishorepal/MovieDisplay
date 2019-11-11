@@ -2,6 +2,7 @@ package com.google.external.assignment.movie.api;
 
 import android.database.Observable;
 
+import com.google.external.assignment.movie.model.moviedb.Movie;
 import com.google.external.assignment.movie.model.moviedb.Response;
 import com.google.external.assignment.movie.model.moviedb.Review;
 import com.google.external.assignment.movie.model.moviedb.Video;
@@ -52,5 +53,22 @@ public interface IMovieDBApi {
     @GET("movie/{id}/reviews")
     Call<Review.Response> GetReviews(@Path("id") String videoId,
                             @QueryMap Map<String, String> queryParams);
+
+
+    /**
+     *
+     * This API is used to fetch the Details information of a Movie
+     *
+     * @param movieId
+     * @param queryParams
+     * @return
+     */
+
+    @GET("movie/{movie_id}")
+    Call<Movie> GetMovieDetails(@Path("movie_id") Long movieId,
+                                     @QueryMap Map<String, String> queryParams);
+
+
+
 
 }

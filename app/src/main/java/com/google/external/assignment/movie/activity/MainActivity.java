@@ -1,6 +1,7 @@
 package com.google.external.assignment.movie.activity;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,7 +12,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.external.assignment.movie.BuildConfig;
 import com.google.external.assignment.movie.R;
 import com.google.external.assignment.movie.adapter.MovieAdapter;
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_nav);
+            BottomNavigationHelper.removeShiftMode(bottomNavigationView);
+            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
             String option = SharedPreferenceUtility.getInstance(this).getValue(SharedPreferenceUtility.PREF_KEY_SORT_OPTION,
                     Constants.SORT_BY_POPULARITY);
@@ -110,6 +116,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
      }
+
+    private static final class BottomNavigationHelper {
+        @SuppressLint("RestrictedApi")
+        static void removeShiftMode(BottomNavigationView view) {
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShifting(true);
+                item.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        }
+    }
 
     public void replaceFragment(BaseFragment fragment) {
 

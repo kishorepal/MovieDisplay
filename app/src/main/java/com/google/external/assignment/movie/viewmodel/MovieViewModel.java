@@ -218,6 +218,11 @@ public class MovieViewModel extends MovieBaseViewModel {
         public void onReviewError(Throwable t) {
 
         }
+
+        @Override
+        public void onDetailsSuccess(Movie aMovie) {
+
+        }
     };
 
     }

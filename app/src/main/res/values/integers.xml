@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="column_count">2</integer>
-
+    <integer name="guideline_percent">48</integer>
 
 </resources>

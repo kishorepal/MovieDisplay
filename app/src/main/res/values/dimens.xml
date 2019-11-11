@@ -62,6 +62,7 @@
     <dimen name="detail_info_margin_min">16dp</dimen>
     <dimen name="contents_text_size">12sp</dimen>
     <dimen name="header_text_size">16sp</dimen>
+    <item name="guideline_percent" type="dimen" format="float">.36</item>
 
 
 </resources>

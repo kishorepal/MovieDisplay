@@ -65,6 +65,12 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         mMovieManager.getReviews(videoId);
     }
 
+    public void getMovieDetails(Long movieId) throws Exception{
+        mMovieManager.getMovieDetails(movieId);
+    }
+
+
+
 
     public ObservableField<Movie> getMovie() {
         return movie;
@@ -148,6 +154,17 @@ public class MovieDetailsViewModel extends AndroidViewModel {
             t.printStackTrace();
             Toast.makeText(getApplication().getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             reviewList.postValue(new ArrayList<Review>());
+        }
+
+        @Override
+        public void onDetailsSuccess(Movie aMovie) {
+
+            Log.i(TAG, "onDetailsSuccess Callback invoked");
+            if(aMovie == null) {
+                return;
+            }
+            movie.set(aMovie);
+
         }
     };
 }

@@ -51,6 +51,7 @@
                 android:text="@{reviewViewModel.content}"
                 android:textColor="@color/black"
                 android:gravity="left"
+                android:maxLines="10"
                 android:textSize="@dimen/contents_text_size"
                 android:justificationMode="inter_word"
                 />

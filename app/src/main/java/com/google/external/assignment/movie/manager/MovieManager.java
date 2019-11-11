@@ -157,6 +157,25 @@ public class MovieManager extends  BaseManager {
 
     }
 
+    public void getMovieDetails(Long movieId) throws Exception {
+        Call<Movie> call = apiInvokeService.GetMovieDetails(movieId, (Map)getQueryParams());
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, retrofit2.Response<Movie> response) {
+                Log.i(TAG, "Movie Details API Calling successful");
+                mCallBack.onDetailsSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+                Log.e(TAG, "The API Calling failed");
+                mCallBack.onReviewError(t);
+                t.printStackTrace();
+            }
+        });
+    }
+
+
 
     /**
      *
@@ -180,8 +199,6 @@ public class MovieManager extends  BaseManager {
     public Flowable<List<Movie>> getMovieInfoFromRoomDatabase() throws Exception {
 
         return mMovieRoomDatabase.movieDao().getMovieList();
-
-
     }
 
 

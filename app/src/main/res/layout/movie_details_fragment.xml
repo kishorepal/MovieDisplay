@@ -66,7 +66,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.46" />
+                        app:guidePercent="@{@integer/guideline_percent}"  />
 
                     <ImageView
                         android:id="@+id/image"

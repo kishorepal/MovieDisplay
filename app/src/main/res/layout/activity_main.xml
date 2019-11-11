@@ -19,15 +19,13 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
-        android:layout_height="70dp"
+        android:layout_height="56dp"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
+        android:layout_gravity="start"
         android:background="@android:color/white"
         app:itemIconTint="@drawable/bottom_navigation_colors"
         app:itemTextColor="@drawable/bottom_navigation_colors"
         android:theme="@style/ThemeOverlay.Shrine.BottomNavigation"
-
-
         app:menu="@menu/main_menu"
         />
 

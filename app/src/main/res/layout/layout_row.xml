@@ -25,12 +25,13 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="4dp"
-    android:layout_margin="1dp">
+    android:layout_margin="2dp"
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
 
         <ImageView
