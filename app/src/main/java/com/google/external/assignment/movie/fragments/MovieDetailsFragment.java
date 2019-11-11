@@ -94,6 +94,8 @@ public class MovieDetailsFragment extends BaseFragment {
         movieDetailsDataBinding.setListener(new OnClickListener());
         setActionBar();
 
+
+
         init(movieDetailsDataBinding.getRoot());
 
         return movieDetailsDataBinding.getRoot();
@@ -231,6 +233,7 @@ public class MovieDetailsFragment extends BaseFragment {
             }
 
         }
+
     }
 
 

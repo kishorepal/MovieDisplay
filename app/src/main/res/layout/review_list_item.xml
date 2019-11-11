@@ -8,6 +8,10 @@
             name="reviewViewModel"
             type="com.google.external.assignment.movie.model.moviedb.Review" />
 
+        <variable
+            name="eventHandler"
+            type="com.google.external.assignment.movie.adapter.ReviewAdapter.EventListener" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -49,11 +53,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{reviewViewModel.content}"
+                android:ellipsize="end"
                 android:textColor="@color/black"
                 android:gravity="left"
-                android:maxLines="10"
+                android:maxLines="5"
                 android:textSize="@dimen/contents_text_size"
                 android:justificationMode="inter_word"
+                android:onClick="@{(view)->eventHandler.toggleReview(view)}"
                 />
 
 

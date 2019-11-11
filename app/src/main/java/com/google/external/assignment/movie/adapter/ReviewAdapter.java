@@ -1,21 +1,28 @@
 package com.google.external.assignment.movie.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.external.assignment.movie.databinding.ReviewDataBinding;
 import com.google.external.assignment.movie.databinding.RowDataBindings;
 import com.google.external.assignment.movie.fragments.BaseFragment;
 import com.google.external.assignment.movie.model.moviedb.Movie;
 import com.google.external.assignment.movie.model.moviedb.Review;
+import com.google.external.assignment.movie.model.moviedb.Video;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdapterHolder> {
 
@@ -45,7 +52,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdap
     public void onBindViewHolder(@NonNull ReviewAdapterHolder holder, int position) {
 
         Review aReviewModel = mReviewList.get(position);
-        holder.bind(aReviewModel);
+
+        EventListener eventListener = new EventListener();
+
+        holder.bind(aReviewModel, eventListener);
 
     }
 
@@ -65,13 +75,27 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdap
 
         }
 
-        public void bind(Review aReview) {
+        public void bind(Review aReview, EventListener eventListener) {
             this.mReviewDataBinding.setReviewViewModel(aReview);
+            this.mReviewDataBinding.setEventHandler(eventListener);
         }
     }
 
     public void setReviewList(List<Review> reviews) {
         this.mReviewList = reviews;
         notifyDataSetChanged();
+    }
+
+
+
+    public class EventListener {
+
+        public void toggleReview(View aView) {
+
+            TextView txtReview = (TextView) aView;
+
+            txtReview.setMaxLines(txtReview.getMaxLines() == 5 ? Integer.MAX_VALUE : 5);
+        }
+
     }
 }

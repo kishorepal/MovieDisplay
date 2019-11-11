@@ -63,6 +63,7 @@
     <dimen name="contents_text_size">12sp</dimen>
     <dimen name="header_text_size">16sp</dimen>
     <item name="guideline_percent" type="dimen" format="float">.36</item>
+    <dimen name="app_bar_height">180dp</dimen>
 
 
 </resources>

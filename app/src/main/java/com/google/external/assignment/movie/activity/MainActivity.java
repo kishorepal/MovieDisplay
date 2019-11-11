@@ -85,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_nav);
-            BottomNavigationHelper.removeShiftMode(bottomNavigationView);
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
             String option = SharedPreferenceUtility.getInstance(this).getValue(SharedPreferenceUtility.PREF_KEY_SORT_OPTION,
                     Constants.SORT_BY_POPULARITY);
@@ -102,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                    if(mFragment != null) {
+                       mFragment= (BaseFragment) getSupportFragmentManager().findFragmentByTag(MOVIES_FRAGMENT_TAG);
                        mFragment.handleBottomNavigation(menuItem);
                    }
                    return true;
@@ -117,22 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
      }
 
-    private static final class BottomNavigationHelper {
-        @SuppressLint("RestrictedApi")
-        static void removeShiftMode(BottomNavigationView view) {
-            BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                //noinspection RestrictedApi
-                item.setShifting(true);
-                item.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
-                // set once again checked value, so view will be updated
-                //noinspection RestrictedApi
-                item.setChecked(item.getItemData().isChecked());
-            }
-        }
-    }
 
     public void replaceFragment(BaseFragment fragment) {
 

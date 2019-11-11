@@ -18,6 +18,8 @@
 
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">
         <item name="android:textColor">@color/black</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Material.Headline</item>
