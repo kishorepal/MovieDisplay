@@ -25,7 +25,7 @@ In this Project, I used the best practice of a Project Architecture. I used my J
 
 # How to Set Movie DB API Key
  
- Change the value of the ext Variable [moviedb_api_key] from [app/build.gradle]. Please replace the [INPUT_API_KEY] of line [ moviedb_api_key = "[INPUT_API_KEY]" ] of the following [ext { }] blocks by Movie DB API Key.
+ Change the value of the ext Variable <b><i>[moviedb_api_key]</i></b> from <b><i>[app/build.gradle]</i></b>. Please replace the <b><i>[INPUT_API_KEY]</i></b> of line <b><i>[moviedb_api_key = "[INPUT_API_KEY]"]</i></b> of the following <b><i>[ext { }]</i></b> blocks by Movie DB API Key.
 
 # Example:
 
