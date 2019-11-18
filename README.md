@@ -34,7 +34,7 @@ In this Project, I used the best practice of a Project Architecture. I used my J
     ext {
         retrofit_version = "2.6.2"
         picasso_version = "2.71828"
-        <span style="background-color: #FFFF00">moviedb_api_key = "[INPUT_API_KEY]"</span>
+        moviedb_api_key = "[INPUT_API_KEY]"
         room_version = "2.2.1"
         flex_version = "1.1.1"
     }
@@ -44,7 +44,7 @@ In this Project, I used the best practice of a Project Architecture. I used my J
       ext {
           retrofit_version = "2.6.2"
           picasso_version = "2.71828"
-          <span style="background-color: #FFFF00">moviedb_api_key = "as1111........"</span>
+          moviedb_api_key = "as1111........"
           room_version = "2.2.1"
           flex_version = "1.1.1"
       }
