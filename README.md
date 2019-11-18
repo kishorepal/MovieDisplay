@@ -25,17 +25,29 @@ In this Project, I used the best practice of a Project Architecture. I used my J
 
 # How to Set Movie DB API Key
  
- Change the value of the ext Variable [moviedb_api_key] from [app/build.gradle]. Please replace the [XXXXX] of line [ moviedb_api_key = "XXXXX" ] of the following [ext { }] blocks by Movie DB API Key.
+ Change the value of the ext Variable [moviedb_api_key] from [app/build.gradle]. Please replace the [INPUT_API_KEY] of line [ moviedb_api_key = "[INPUT_API_KEY]" ] of the following [ext { }] blocks by Movie DB API Key.
 
 # Example:
+
+ Before Changing:
 
     ext {
         retrofit_version = "2.6.2"
         picasso_version = "2.71828"
-        moviedb_api_key = "XXXXX"
+        moviedb_api_key = "[INPUT_API_KEY]"
         room_version = "2.2.1"
         flex_version = "1.1.1"
     }
+    
+ After Changing:
+  
+      ext {
+          retrofit_version = "2.6.2"
+          picasso_version = "2.71828"
+          moviedb_api_key = "as1111........"
+          room_version = "2.2.1"
+          flex_version = "1.1.1"
+      }
 
 
  
