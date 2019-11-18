@@ -29,13 +29,13 @@ In this Project, I used the best practice of a Project Architecture. I used my J
 
 # Example:
 
-ext {
-    retrofit_version = "2.6.2"
-    picasso_version = "2.71828"
-    moviedb_api_key = "XXXXX"
-    room_version = "2.2.1"
-    flex_version = "1.1.1"
-}
+    ext {
+        retrofit_version = "2.6.2"
+        picasso_version = "2.71828"
+        moviedb_api_key = "XXXXX"
+        room_version = "2.2.1"
+        flex_version = "1.1.1"
+    }
 
 
  
